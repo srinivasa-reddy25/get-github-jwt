@@ -33,10 +33,15 @@ Generates a GitHub App JWT token.
 **Request Body:**
 ```json
 {
-  "private_key": "-----BEGIN RSA PRIVATE KEY-----\nYOUR_PRIVATE_KEY_HERE\n-----END RSA PRIVATE KEY-----",
+  "private_key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA5Tb8Us22XVDV5PPNbTbhOOAGpDvP9pq2FyMmbyp9kGzhG7x+\nk4/vaSX7VnefsmobCPfx9QjPN1Jj4Ig2vcSb5YNHBaPK7ogOQn5Ow2Wun2V/IRux\n...\n-----END RSA PRIVATE KEY-----",
   "app_id": 123456
 }
 ```
+
+**Important:** The private key must be:
+- A valid RSA private key in PEM format
+- Include the full `-----BEGIN RSA PRIVATE KEY-----` and `-----END RSA PRIVATE KEY-----` markers
+- All newlines should be represented as `\n` in JSON
 
 **Response:**
 ```json

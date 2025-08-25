@@ -25,6 +25,13 @@ app.post('/get-github-jwt', (req, res) => {
             });
         }
 
+        // Validate private key format
+        if (!private_key.includes('-----BEGIN') || !private_key.includes('-----END')) {
+            return res.status(400).json({
+                error: 'Invalid private key format. Private key must be in PEM format with BEGIN/END markers.'
+            });
+        }
+
         // Generate JWT payload
         const now = Math.floor(Date.now() / 1000);
         const payload = {
@@ -47,6 +54,12 @@ app.post('/get-github-jwt', (req, res) => {
         console.error('JWT generation error:', error.message);
 
         // Handle specific JWT errors
+        if (error.message.includes('asymmetric key') || error.message.includes('RS256')) {
+            return res.status(400).json({
+                error: 'Invalid private key format. Private key must be a valid RSA private key in PEM format for RS256 algorithm.'
+            });
+        }
+
         if (error.message.includes('PEM')) {
             return res.status(400).json({
                 error: 'Invalid private key format. Please provide a valid RSA private key in PEM format.'
