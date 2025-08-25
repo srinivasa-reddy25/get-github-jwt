@@ -3,7 +3,7 @@ services:
     name: get-github-jwt
     env: node
     plan: free
-    buildCommand: npm ci
+    buildCommand: npm run build
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
